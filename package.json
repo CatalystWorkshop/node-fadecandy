@@ -1,11 +1,11 @@
 {
-  "name": "node-fadecandy",
-  "version": "2.0.4",
-  "description": "Library to control and send video frames directly to a FadeCandy device from NodeJS via USB",
+  "name": "@catalyst-workshop/node-fadecandy",
+  "version": "2.0.5",
+  "description": "[FORK] Library to control and send video frames directly to a FadeCandy device from NodeJS via USB",
   "main": "dist/FadeCandy.js",
   "scripts": {
     "test": "npm run build && npm run test:unit",
-    "test:unit": "node_modules/.bin/_mocha --ui tdd test/*.js",
+    "test:unit": "mocha --ui tdd test/*.js",
     "demo": "npm run build; node demo.js",
     "build": "babel src --out-dir dist"
   },
@@ -21,22 +21,22 @@
     "usb"
   ],
   "dependencies": {
-    "debug": "^2.2.0",
-    "usb": "^1.6.2"
+    "@babel/preset-env": "^7.18.10",
+    "debug": "^2.1.1",
+    "usb": "^1.8.8"
   },
   "devDependencies": {
-    "babel-cli": "^6.16.0",
-    "babel-preset-es2015": "^6.16.0",
-    "mocha": "^3.1.0"
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.18.10",
+    "mocha": "^10.0.0"
   },
-  "author": "nec@shell8.net",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/livejs/node-fadecandy/issues"
+    "url": "https://github.com/catalyst-workshop/node-fadecandy/issues"
   },
-  "homepage": "https://github.com/livejs/node-fadecandy#readme",
+  "homepage": "https://github.com/catalyst-workshop/node-fadecandy#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/livejs/node-fadecandy.git"
+    "url": "git+https://github.com/catalyst-workshop/node-fadecandy.git"
   }
 }
