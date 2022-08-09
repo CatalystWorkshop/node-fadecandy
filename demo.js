@@ -8,9 +8,6 @@ fc.on(FadeCandy.events.READY, function () {
 
     console.log('FadeCandy.events.READY')
 
-    // see the config schema
-    console.log(fc.Configuration.schema)
-
     // create default color look up table
     fc.clut.create()
 
@@ -23,28 +20,30 @@ fc.on(FadeCandy.events.READY, function () {
         state = !state;
         fc.config.set(fc.Configuration.schema.LED_STATUS, +state)
     }, 100)
+    fc.config.set(fc.Configuration.schema.DISABLE_KEYFRAME_INTERPOLATION, false);
 })
 
-fc.on(FadeCandy.events.COLOR_LUT_READY, function () {
-    console.log('FaceCandy says color lut ready')
+fc.on(FadeCandy.events.COLOR_LUT_READY, () => {
+    console.log('FadeCandy.events.COLOR_LUT_READY')
+    let frame = 0;
+    let PIXELS = 64;
+    let seedR = Math.floor(Math.random() * 255);
+    let seedG = Math.floor(Math.random() * 255);
+    let seedB = Math.floor(Math.random() * 255);
+    let data = new Uint8Array(PIXELS * 3).fill(0);
 
-    let frame = 0
-    let pixels = 120
-    setInterval(function () {
-
-        let data = new Uint8Array(pixels * 3)
-
-        for (let pixel = 0; pixel < pixels; pixel ++) {
-            //if (frame % pixels == pixel) {
-                let i = 3 * pixel
-
-                data[i] = 255
-                data[i + 1] = 0
-                data[i + 2] = 255
-            //}
-        }
+    setInterval(() => {
+        data.fill(0);
+        let pixel = frame % PIXELS;
+        data[pixel] = seedR++ % 255
+        data[pixel + 1] = seedG++ % 255
+        data[pixel + 2] = seedB++ % 255
         fc.send(data)
         frame++
+    }, 300)
 
-    }, 20)
+    process.on("SIGINT", () => {
+        fc.send(data.fill(0));
+        process.exit();
+    });
 })
